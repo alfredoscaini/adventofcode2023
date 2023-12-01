@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  app: 
+    build:
+      dockerfile: ./dockerfile.local       
+    container_name: advent   
+    restart: always
+    volumes: 
+      - ./src:/var/www/html
+    ports: 
+      - "7000:80"
