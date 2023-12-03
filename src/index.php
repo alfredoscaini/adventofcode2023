@@ -21,9 +21,17 @@
 
       <div class="card">
         <div class="card-body">
+          <h2 class="card-title">Day 3: Gear Ratios</h2>
+          <p class="card-text">The engine schematic (your puzzle input) consists of a visual representation of the engine. Find the sums of the correct parts, then find the sum of the product of the gear ratios.</p>
+          <a href="03-dec/" class="btn btn-primary">03 December results</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
           <h2 class="card-title">Day 2: Cube Conundrum</h2>
           <p class="card-text">To get information, once a bag has been loaded with cubes, the Elf will reach into the bag, grab a handful of random cubes, show them to you, and then put them back in the bag. He'll do this a few times per game.</p>
-          <a href="01-dec/" class="btn btn-primary">02 December results</a>
+          <a href="02-dec/" class="btn btn-primary">02 December results</a>
         </div>
       </div>
       
