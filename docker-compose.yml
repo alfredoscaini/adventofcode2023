@@ -8,5 +8,6 @@ services:
     restart: always
     volumes: 
       - ./src:/var/www/html
+      - './php.ini:/usr/local/etc/php/php.ini'
     ports: 
       - "7000:80"
