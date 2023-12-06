@@ -48,9 +48,9 @@ trait Extract {
     foreach ($data as $item) {      
       $destination_range_start = $item[0];
       $source_range_start      = $item[1];        
-      $range_legnth            = $item[2];
+      $range_length            = $item[2];
 
-      $source_range_end        = $source_range_start + $range_legnth;
+      $source_range_end        = $source_range_start + $range_length;
 
 
       if (($id > $source_range_start) && ($id < $source_range_end)) {
@@ -63,7 +63,6 @@ trait Extract {
   }
 
   function getRange($range = [], $data = []) {
-
     $source_min = $range['min'];
     $source_max = $range['max'];
   
@@ -73,19 +72,18 @@ trait Extract {
     foreach ($data as $item) {
       $destination_range_start = $item[0];
       $source_range_start      = $item[1];        
-      $range_legnth            = $item[2];
+      $range_length            = $item[2];
   
-      $source_range_end       = $source_range_start + $range_legnth;
-      $destination_range_end  = $destination_range_start + $range_legnth;
+      $source_range_end       = $source_range_start + $range_length;
 
-      if (($source_min > $source_range_start) ) {
+      if ( ($source_min > $source_range_start) && ($source_min < $source_range_end)) {
         $increment = $source_min - $source_range_start;
         $result_min = $destination_range_start + $increment;
       }
 
-      if (($source_max < $source_range_end)) {
-        $increment = $source_max - $source_range_end;
-        $result_max = $destination_range_end + $increment;
+      if ( ($source_max > $source_range_start) && ($source_max < $source_range_end)) {
+        $increment  = $source_max - $source_range_start;
+        $result_max = $destination_range_start + $increment;
       }
     }
   
@@ -103,6 +101,7 @@ trait Extract {
 date_default_timezone_set("America/New_York");
 require_once('data.php');
 
+// Question 1: what is the lowest location value?
 $maps = [];
 $id   = 0;
 foreach ($seeds as $seed) {
@@ -128,13 +127,9 @@ foreach ($maps as $map) {
   }
 }
 
-// Question 1: what is the lowest location value?
 print '<p>The lowest location value is ' . $location_min . '</p>';
 
 // Question 2: What is the lowest location value from a range of seeds?
-print "<p>Start time is " . date("h:i:sa") . '</p>';
-
-
 $maps         = [];
 foreach ($seed_ranges as $key => $item) {
   $min       = $item[0];
@@ -163,7 +158,6 @@ foreach ($maps as $map) {
 
 
 print '<p>The minimum location is ' . $location_min . '</p>';
-print "<p>End time is " . date("h:i:sa") . '</p>';
 
 print '<pre>';
 print_r($maps);
