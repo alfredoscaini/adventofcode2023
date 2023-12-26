@@ -145,27 +145,32 @@ $index        = 1;
 $position     = [0, 0];
 $min_column   = 0;
 $max_column   = 0;
-$borders      = 0;
+$perimeter      = 0;
 $area         = 0;
 
 foreach ($data as $dig) {
   $instruction = new Instruction($index, $dig[0], $dig[1], $dig[2]);  
   $instructions[$index++] = $instruction;
-  $borders += $instruction->amount;
+  $perimeter += $instruction->amount;
 
   list($position_x, $position_y, $min_column, $max_column) = $map->build($position, $instruction, $min_column, $max_column, false);  
   $position = [$position_x, $position_y];    
 }
 
+// Based on Gauss's Area Calculation Formula, where
+// area is the area of the polygon,
+// $i is the number of sides (or vertices) of the polygon,
+// $map->points[$i][0], is the Cartesian X coordinate
+// and +1 or -1 define next or previous Y coordinates
+$sum = 0;
 for ($i = 1; $i < count($map->points) - 1; $i++){
-  $area += ($map->points[$i][0] * ($map->points[$i+1][1] - $map->points[$i-1][1]));
+  $sum += ($map->points[$i][0] * ($map->points[$i+1][1] - $map->points[$i-1][1]));
 }
 
+$area = abs($sum)/2;
+$interior = $area - $perimeter/2 + 1;
 
-$area = abs($area)/2;
-$interior = $area - $borders/2 + 1;
-
-print '<p>The total cubic meters of lava this pattern can hold is ' . $interior + $borders . '</p>';
+print '<p>The total cubic meters of lava this pattern can hold is ' . $interior + $perimeter . '</p>';
 
 
 $map          = new Map();
@@ -174,13 +179,13 @@ $index        = 1;
 $position     = [0, 0];
 $min_column   = 0;
 $max_column   = 0;
-$borders      = 0;
+$perimeter      = 0;
 $area         = 0;
 
 foreach ($data as $dig) {
   $instruction = new Instruction($index, $dig[0], $dig[1], $dig[2]);  
   $instructions[$index++] = $instruction;
-  $borders += $instruction->color_instruction['amount'];
+  $perimeter += $instruction->color_instruction['amount'];
 
   
   list($position_x, $position_y, $min_column, $max_column) = $map->build($position, $instruction, $min_column, $max_column, true);  
@@ -192,6 +197,6 @@ for ($i = 1; $i < count($map->points) - 1; $i++){
 }
 
 $area = abs($area)/2;
-$interior = $area - $borders/2 + 1;
+$interior = $area - $perimeter/2 + 1;
 
-print '<p>The total cubic meters of lava this new pattern can hold is ' . $interior + $borders . '</p>';
+print '<p>The total cubic meters of lava this new pattern can hold is ' . $interior + $perimeter . '</p>';
