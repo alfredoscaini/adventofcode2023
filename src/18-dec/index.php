@@ -160,8 +160,8 @@ foreach ($data as $dig) {
 // Based on Gauss's Area Calculation Formula, where
 // area is the area of the polygon,
 // $i is the number of sides (or vertices) of the polygon,
-// $map->points[$i][0], is the Cartesian X coordinate
-// and +1 or -1 define next or previous Y coordinates
+// $map->points[$i][0], is the Cartesian coordinate
+// and +1 or -1 define the difference between the next and previous coordinate
 $sum = 0;
 for ($i = 1; $i < count($map->points) - 1; $i++){
   $sum += ($map->points[$i][0] * ($map->points[$i+1][1] - $map->points[$i-1][1]));
